@@ -1,15 +1,16 @@
-import { DataGrid, GridColDef, GridRowModel } from '@mui/x-data-grid';
+import React from "react";
+import { DataGrid, GridColDef, GridRowModel } from "@mui/x-data-grid";
 import { collection } from "firebase/firestore";
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { db } from "../../App";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { db } from "../App";
 
 function TiposComprobantesGestion() {
 
     const query = collection(db, "productos");
     const columns: GridColDef[] = [
-        { field: 'id', headerName: 'ID', width: 150 },
-        { field: 'nombre', headerName: 'Nombre', width: 250 },
-        { field: 'descripcion', headerName: 'Descripcion', width: 250 },
+        { field: "id", headerName: "ID", width: 150 },
+        { field: "nombre", headerName: "Nombre", width: 250 },
+        { field: "descripcion", headerName: "Descripcion", width: 250 },
     ];
     const [values, loading, error] = useCollection(query);
 
@@ -29,9 +30,9 @@ function TiposComprobantesGestion() {
                 />
             }
         </div>
-    )
+    );
 }
 
-export default TiposComprobantesGestion
+export default TiposComprobantesGestion;
 
 

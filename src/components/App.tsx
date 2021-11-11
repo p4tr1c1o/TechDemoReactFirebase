@@ -1,9 +1,8 @@
 import React from "react";
 import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import AppRoutes from "./AppRoutes";
 import { BrowserRouter } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import AppRoutes from "./AppRoutes";
 
 
 export const app = initializeApp({
@@ -20,7 +19,6 @@ export const db = getFirestore(app);
 function App() {
     return (
         <BrowserRouter>
-            <CssBaseline />
             <AppRoutes />
         </BrowserRouter>
     );

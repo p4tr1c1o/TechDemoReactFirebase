@@ -1,18 +1,19 @@
-import React from 'react'
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material"
-import MenuIcon from '@mui/icons-material/Menu';
+import React from "react";
+import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 interface Props {
     drawerWidth: number,
     handleDrawerToggle: () => void
 }
 
-function AppTopBar(props: Props) {
+function AppTopBar({ handleDrawerToggle, drawerWidth }: Props) {
     return (
         <AppBar
             position="fixed"
             sx={{
-                ml: { sm: `${props.drawerWidth}px` },
+                display: "flex",
+                ml: { sm: `${drawerWidth}px` },
                 zIndex: (theme) => theme.zIndex.drawer + 1
             }}
         >
@@ -21,8 +22,8 @@ function AppTopBar(props: Props) {
                     color="inherit"
                     aria-label="open drawer"
                     edge="start"
-                    onClick={props.handleDrawerToggle}
-                    sx={{ mr: 2, display: { sm: 'none' } }}
+                    onClick={handleDrawerToggle}
+                    sx={{ mr: 2, display: { sm: "none" } }}
                 >
                     <MenuIcon />
                 </IconButton>
@@ -31,7 +32,7 @@ function AppTopBar(props: Props) {
                 </Typography>
             </Toolbar>
         </AppBar>
-    )
+    );
 }
 
-export default AppTopBar
+export default AppTopBar;

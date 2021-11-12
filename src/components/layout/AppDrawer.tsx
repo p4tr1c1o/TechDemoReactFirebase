@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { Link } from "react-router-dom";
 
 interface Props {
     drawerWidth: number,
@@ -20,7 +21,8 @@ function AppDrawer(props: Props) {
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        {/* <ListItemText primary={text} /> */}
+                        <Link to="tipos-comprobantes">Tipos Comp</Link>
                     </ListItem>
                 ))}
             </List>
@@ -31,7 +33,8 @@ function AppDrawer(props: Props) {
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        {/* <ListItemText primary={text} /> */}
+                        <Link to="Pagina">Pagina</Link>
                     </ListItem>
                 ))}
             </List>

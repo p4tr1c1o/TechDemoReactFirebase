@@ -4,7 +4,7 @@ import { collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../App";
 import { Box } from "@mui/system";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Paper, Typography } from "@mui/material";
 
 function TiposComprobantesGestion() {
 
@@ -20,23 +20,25 @@ function TiposComprobantesGestion() {
     const rows = values?.docs.map(x => x.data()) as GridRowModel[];
 
     return (
-        <Box sx={{
-            display: "flex",
+        <Paper sx={{
             flex: 1,
             backgroundColor: "yellow",
+            display: "flex"
         }}>
             {loading && <CircularProgress />}
             {values &&
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    loading={loading}
-                    checkboxSelection
-                />
+                <Box sx={{ display: "flex", flex: 1, height: "calc(100vh - 295px)" }}>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        loading={loading}
+                        checkboxSelection
+                    />
+                </Box>
             }
-        </Box>
+        </Paper>
     );
 }
 

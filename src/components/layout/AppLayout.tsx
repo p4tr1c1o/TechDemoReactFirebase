@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import AppDrawer from "./AppDrawer";
 import AppTopBar from "./AppTopBar";
 import { Outlet } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -28,20 +28,25 @@ export default function AppLayout() {
                     mobileOpen={mobileOpen}
                 />
 
-                <Box
-                    component="main"
-                    sx={{
-                        display: "flex",
-                        backgroundColor: "violet",
-                        flexGrow: 1,
-                        height: "100vh",
-                        overflow: "auto",
-                        mt: { xs: 6, sm: 8 }
-                    }}>
-                    <Outlet />
+                <Box sx={{
+                    backgroundColor: "purple",
+                    flexGrow: 1,
+                    overflow: "auto",
+                    marginTop: { xs: 7, sm: 8 },
+                    height: { xs: "calc(100vh - 58px)", sm: "calc(100vh - 64px)" },
+                }}>
+                    <Container
+                        sx={{
+                            display: "flex",
+                            backgroundColor: "violet",
+                            maxWidth: "1200px",
+                            paddingTop: { xs: 2, sm: 3 },
+                        }}>
+                        <Outlet />
+                    </Container>
                 </Box>
 
             </Box>
-        </div>
+        </div >
     );
 }

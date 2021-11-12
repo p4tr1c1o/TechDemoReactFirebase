@@ -36,7 +36,7 @@
             0
         ],
         "max-len": [
-            "warn",
+            "off",
             {
                 "code": 95
             }

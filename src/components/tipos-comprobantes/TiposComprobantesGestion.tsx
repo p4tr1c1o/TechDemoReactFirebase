@@ -4,9 +4,10 @@ import { collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../App";
 import { Box } from "@mui/system";
-import { AppBar, CircularProgress, Grid, Paper, Toolbar, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 import appTheme from "../../paperbase/AppTheme";
 import AppToolbar from "../../paperbase/AppToolbar";
+import AppCircularProgress from "../../paperbase/AppCircularProgress";
 
 function TiposComprobantesGestion() {
     const query = collection(db, "productos");
@@ -24,16 +25,11 @@ function TiposComprobantesGestion() {
     return (
         <>
             <AppToolbar titulo="Tipos de Comprobantes" />
-            <Box sx={appTheme.main}>
-                <Paper sx={{
-                    flex: 1,
-                    backgroundColor: "yellow",
-                    display: "flex"
-                }}>
-
-                    {loading && <CircularProgress />}
+            <Box component="main" sx={appTheme.main}>
+                <Paper sx={{ flex: 1 }}>
+                    {loading && <AppCircularProgress />}
                     {values &&
-                        <Box sx={{ display: "flex", flex: 1, height: "calc(100vh - 295px)" }}>
+                        <Box sx={{ flex: 1 }}>
                             <DataGrid
                                 rows={rows}
                                 columns={columns}
@@ -45,7 +41,7 @@ function TiposComprobantesGestion() {
                         </Box>
                     }
                 </Paper>
-            </Box>
+            </Box >
         </ >
     );
 }

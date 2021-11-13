@@ -46,6 +46,7 @@ let appTheme = createTheme({
         },
     },
     main: {
+        display: "flex",
         flex: 1,
         paddingY: 4,
         paddingX: 4,

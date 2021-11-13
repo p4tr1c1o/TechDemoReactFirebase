@@ -1,6 +1,21 @@
 import { createTheme } from "@mui/material/styles";
 
-let theme = createTheme({
+
+declare module "@mui/material/styles" {
+    interface Theme {
+        main: {
+
+        };
+    }
+    // allow configuration using `createTheme`
+    interface ThemeOptions {
+        main?: {
+
+        };
+    }
+}
+
+let appTheme = createTheme({
     palette: {
         primary: {
             light: "#63ccff",
@@ -30,10 +45,17 @@ let theme = createTheme({
             minHeight: 48,
         },
     },
+    main: {
+        flex: 1,
+        paddingY: 4,
+        paddingX: 4,
+        backgroundColor: "#eaeff1",
+
+    },
 });
 
-theme = {
-    ...theme,
+appTheme = {
+    ...appTheme,
     components: {
         MuiDrawer: {
             styleOverrides: {
@@ -58,13 +80,13 @@ theme = {
         MuiTabs: {
             styleOverrides: {
                 root: {
-                    marginLeft: theme.spacing(1),
+                    marginLeft: appTheme.spacing(1),
                 },
                 indicator: {
                     height: 3,
                     borderTopLeftRadius: 3,
                     borderTopRightRadius: 3,
-                    backgroundColor: theme.palette.common.white,
+                    backgroundColor: appTheme.palette.common.white,
                 },
             },
         },
@@ -75,7 +97,7 @@ theme = {
                     margin: "0 16px",
                     minWidth: 0,
                     padding: 0,
-                    [theme.breakpoints.up("md")]: {
+                    [appTheme.breakpoints.up("md")]: {
                         padding: 0,
                         minWidth: 0,
                     },
@@ -85,7 +107,7 @@ theme = {
         MuiIconButton: {
             styleOverrides: {
                 root: {
-                    padding: theme.spacing(1),
+                    padding: appTheme.spacing(1),
                 },
             },
         },
@@ -116,7 +138,7 @@ theme = {
             styleOverrides: {
                 primary: {
                     fontSize: 14,
-                    fontWeight: theme.typography.fontWeightMedium,
+                    fontWeight: appTheme.typography.fontWeightMedium,
                 },
             },
         },
@@ -125,7 +147,7 @@ theme = {
                 root: {
                     color: "inherit",
                     minWidth: "auto",
-                    marginRight: theme.spacing(2),
+                    marginRight: appTheme.spacing(2),
                     "& svg": {
                         fontSize: 20,
                     },
@@ -143,5 +165,5 @@ theme = {
     },
 };
 
-export default theme;
+export default appTheme;
 

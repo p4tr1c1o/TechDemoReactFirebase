@@ -22,75 +22,69 @@ import { Link } from "react-router-dom";
 
 const categories = [
     {
-        id: "Build",
-        children: [
-            {
-                id: "Authentication",
-                icon: <PeopleIcon />,
-                active: true,
-            },
-            { id: "Pagina", icon: <DnsRoundedIcon />, route: "pagina" },
-            { id: "Tipos Comprobantes", icon: <PermMediaOutlinedIcon />, route: "tipos-comprobantes" },
-            { id: "Hosting", icon: <PublicIcon /> },
-            { id: "Functions", icon: <SettingsEthernetIcon /> },
-            {
-                id: "Machine learning",
-                icon: <SettingsInputComponentIcon />,
-            },
+        nombreCategoria: "Build",
+        paginas: [
+            { titulo: "Authentication", icono: <PeopleIcon />, activo: true },
+            { titulo: "Pagina", icono: <DnsRoundedIcon />, ruta: "pagina" },
+            { titulo: "Tipos Comprobantes", icono: <PermMediaOutlinedIcon />, ruta: "tipos-comprobantes" },
+            { titulo: "Hosting", icono: <PublicIcon /> },
+            { titulo: "Functions", icono: <SettingsEthernetIcon /> },
+            { titulo: "Machine learning", icono: <SettingsInputComponentIcon /> },
         ],
     },
     {
-        id: "Quality",
-        children: [
-            { id: "Analytics", icon: <SettingsIcon /> },
-            { id: "Performance", icon: <TimerIcon /> },
-            { id: "Test Lab", icon: <PhonelinkSetupIcon /> },
+        nombreCategoria: "Quality",
+        paginas: [
+            { titulo: "Analytics", icono: <SettingsIcon /> },
+            { titulo: "Performance", icono: <TimerIcon /> },
+            { titulo: "Test Lab", icono: <PhonelinkSetupIcon /> },
         ],
     },
 ];
 
-const item = {
-    py: "2px",
-    px: 3,
-    color: "rgba(255, 255, 255, 0.7)",
-    "&:hover, &:focus": {
-        bgcolor: "rgba(255, 255, 255, 0.08)",
+const styles = {
+    item: {
+        py: "2px",
+        px: 3,
+        color: "rgba(255, 255, 255, 0.7)",
+        "&:hover, &:focus": {
+            bgcolor: "rgba(255, 255, 255, 0.08)",
+        },
     },
+    itemCategory: {
+        boxShadow: "0 -1px 0 rgb(255,255,255,0.1) inset",
+        py: 1.5,
+        px: 3,
+    }
 };
 
-const itemCategory = {
-    boxShadow: "0 -1px 0 rgb(255,255,255,0.1) inset",
-    py: 1.5,
-    px: 3,
-};
-
-export default function Navigator(props: DrawerProps) {
-    const { ...other } = props;
+export default function Navigator({ ...props }: DrawerProps) {
+    //TODO: renombrar variables y usar thema para stylos y colores
 
     return (
-        <Drawer variant="permanent" {...other}>
+        <Drawer variant="permanent" {...props}>
             <List disablePadding>
-                <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: "#fff" }}>
+                <ListItem sx={{ ...styles.item, ...styles.itemCategory, fontSize: 22, color: "#fff" }}>
                     Paperbase
                 </ListItem>
-                <ListItem sx={{ ...item, ...itemCategory }}>
+                <ListItem sx={{ ...styles.item, ...styles.itemCategory }}>
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
                     <ListItemText>Project Overview</ListItemText>
                 </ListItem>
-                {categories.map(({ id, children }) => (
-                    <Box key={id} sx={{ bgcolor: "#101F33" }}>
+                {categories.map(({ nombreCategoria, paginas }) => (
+                    <Box key={nombreCategoria} sx={{ bgcolor: "#101F33" }}>
                         <ListItem sx={{ py: 2, px: 3 }}>
-                            <ListItemText sx={{ color: "#fff" }}>{id}</ListItemText>
+                            <ListItemText sx={{ color: "#fff" }}>{nombreCategoria}</ListItemText>
                         </ListItem>
-                        {children.map(({ id: childId, icon, active, route }) => (
-                            <ListItem disablePadding key={childId}>
-                                <ListItemButton selected={active} sx={item}>
-                                    <ListItemIcon>{icon}</ListItemIcon>
-                                    {route
-                                        ? <Link to={route}>{childId}</Link>
-                                        : <ListItemText>{childId}</ListItemText>
+                        {paginas.map(({ titulo, icono, activo, ruta }) => (
+                            <ListItem disablePadding key={titulo}>
+                                <ListItemButton selected={activo} sx={styles.item}>
+                                    <ListItemIcon>{icono}</ListItemIcon>
+                                    {ruta
+                                        ? <Link to={ruta}>{titulo}</Link>
+                                        : <ListItemText>{titulo}</ListItemText>
                                     }
                                 </ListItemButton>
                             </ListItem>

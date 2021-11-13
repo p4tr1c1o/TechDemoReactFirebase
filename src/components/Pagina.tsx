@@ -2,7 +2,7 @@ import React from "react";
 
 const Pagina = props => {
     return (
-        <div style={{ padding: "24px" }}>
+        <div >
             <h2>I bring the pasta.</h2>
             <div>
                 <div>

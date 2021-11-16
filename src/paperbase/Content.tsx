@@ -20,6 +20,7 @@ export default function Content() {
                 elevation={0}
                 sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.12)" }}
             >
+
                 <Toolbar>
                     <Grid container spacing={2} alignItems="center">
                         <Grid item>

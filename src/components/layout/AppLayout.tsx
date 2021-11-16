@@ -1,52 +1,48 @@
-import React from "react";
+import * as React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
+import appTheme from "../AppTheme";
+import AppFooter from "./AppFooter";
 import AppDrawer from "./AppDrawer";
-import AppTopBar from "./AppTopBar";
 import { Outlet } from "react-router-dom";
-import { Container, CssBaseline } from "@mui/material";
-
-const drawerWidth = 240;
+import Header from "./Header";
+import { padding } from "@mui/system";
 
 export default function AppLayout() {
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const isMdUp = useMediaQuery(appTheme.breakpoints.up("md"));
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
+    const styles = {
+        layout: {
+            display: "flex",
+            minHeight: "100vh",
+        },
+        mainWraper: {
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+        },
+    } as const;
+
     return (
-        <div>
-            <Box sx={{ display: "flex", backgroundColor: "red" }}>
-                <CssBaseline />
-                <AppTopBar
-                    drawerWidth={drawerWidth}
-                    handleDrawerToggle={handleDrawerToggle}
-                />
+        <ThemeProvider theme={appTheme}>
+            <Box sx={styles.layout}>
                 <AppDrawer
-                    drawerWidth={drawerWidth}
-                    handleDrawerToggle={handleDrawerToggle}
+                    isMdUp={isMdUp}
                     mobileOpen={mobileOpen}
+                    handleDrawerToggle={handleDrawerToggle}
                 />
-
-                <Box sx={{
-                    backgroundColor: "purple",
-                    flexGrow: 1,
-                    overflow: "auto",
-                    marginTop: { xs: 7, sm: 8 },
-                    height: { xs: "calc(100vh - 58px)", sm: "calc(100vh - 64px)" },
-                }}>
-                    <Container
-                        sx={{
-                            display: "flex",
-                            backgroundColor: "violet",
-                            maxWidth: "1200px",
-                            paddingTop: { xs: 2, sm: 3 },
-                        }}>
-                        <Outlet />
-                    </Container>
+                <Box sx={styles.mainWraper}>
+                    <Header onDrawerToggle={handleDrawerToggle} />
+                    <Outlet />
+                    <AppFooter />
                 </Box>
-
-            </Box>
-        </div >
+            </Box >
+        </ThemeProvider >
     );
 }

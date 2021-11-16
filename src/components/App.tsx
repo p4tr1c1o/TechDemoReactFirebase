@@ -4,7 +4,6 @@ import { initializeApp } from "firebase/app";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 
-
 export const app = initializeApp({
     apiKey: "AIzaSyDYIce0ZYlci3-YxoRVYvLvsV_cZAhPi-w",
     authDomain: "moxtechdemo.firebaseapp.com",

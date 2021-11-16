@@ -51,6 +51,7 @@ let appTheme = createTheme({
         paddingY: 4,
         paddingX: 4,
         backgroundColor: "#eaeff1",
+        justifyContent: "center"
 
     },
 });

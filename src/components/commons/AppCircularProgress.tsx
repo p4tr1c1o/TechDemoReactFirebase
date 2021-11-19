@@ -3,8 +3,12 @@ import React from "react";
 
 function AppCircularProgress() {
     return (
-        <Box sx={{ display: "flex", height: "100%", justifyContent: "center", alignItems: "center" }}>
-            <CircularProgress size="80px" />
+        <Box sx={{
+            display: "flex",
+            flexGrow: 1,
+            alignItems: "center",
+        }}>
+            <CircularProgress size="80px" sx={{ margin: "auto" }} />
         </Box>);
 }
 

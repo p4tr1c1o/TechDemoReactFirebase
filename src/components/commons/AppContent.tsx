@@ -11,10 +11,14 @@ function AppContent(props) {
             padding: 6,
         }}>
             <Paper sx={{
+                display: "flex",
+                flexDirection: "column",
                 flexGrow: 1,
                 marginBottom: "auto",
                 maxWidth: 1200,
-                minHeight: "419px"
+                minHeight: "419px",
+                justifyContent: "center",
+
             }}>
                 {props.children}
             </Paper>

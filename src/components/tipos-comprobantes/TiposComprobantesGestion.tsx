@@ -13,6 +13,8 @@ import AppContent from "../commons/AppContent";
 function TiposComprobantesGestion() {
     const query = collection(db, "productos");
     const [values, loading, error] = useCollection(query);
+
+    const rows = values?.docs.map(x => x.data()) as GridRowModel[];
     const columns: GridColDef[] = [
         { field: "id", headerName: "ID", width: 85 },
         { field: "nombre", headerName: "Nombre", width: 250 },
@@ -20,9 +22,6 @@ function TiposComprobantesGestion() {
         { field: "actions", width: 150, headerName: " ", renderCell: renderBotonGrilla },
     ];
 
-
-    const rows = values?.docs.map(x => x.data()) as GridRowModel[];
-    // console.table(rows);
 
     function renderBotonGrilla() {
         return (
@@ -57,10 +56,12 @@ function TiposComprobantesGestion() {
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
+                        pageSize={2}
+                        rowsPerPageOptions={[2]}
                         loading={loading}
-                        autoHeight={true}
+                        disableSelectionOnClick
+                        autoHeight
+                        pagination
                     />
                 }
             </AppContent>

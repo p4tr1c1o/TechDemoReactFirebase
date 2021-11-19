@@ -3,15 +3,12 @@ import { createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
     interface Theme {
-        main: {
-
-        };
+        main: unknown;
     }
     // allow configuration using `createTheme`
     interface ThemeOptions {
-        main?: {
-
-        };
+        main?: unknown;
+        paper?: unknown;
     }
 }
 

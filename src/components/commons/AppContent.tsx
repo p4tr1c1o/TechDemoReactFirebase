@@ -8,7 +8,7 @@ function AppContent(props) {
             display: "flex",
             justifyContent: "center",
             flexGrow: 1,
-            padding: 6,
+            padding: { xs: 2, md: 6 },
         }}>
             <Paper sx={{
                 display: "flex",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataGrid, GridColDef, GridRowModel } from "@mui/x-data-grid";
 import { collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -8,6 +8,7 @@ import AppToolbar from "../commons/AppToolbar";
 import AppCircularProgress from "../commons/AppCircularProgress";
 import AppGridHeader from "../commons/AppGridHeader";
 import AppContent from "../commons/AppContent";
+import TiposComprobantesFormulario from "./TiposComprobantesFormulario";
 
 
 function TiposComprobantesGestion() {
@@ -21,7 +22,7 @@ function TiposComprobantesGestion() {
         { field: "descripcion", headerName: "Descripcion", width: 250 },
         { field: "actions", width: 150, headerName: " ", renderCell: renderBotonGrilla },
     ];
-
+    const [isOpen, setIsOpen] = useState(false);
 
     function renderBotonGrilla() {
         return (
@@ -38,26 +39,35 @@ function TiposComprobantesGestion() {
     }
 
     function handleNuevoClick() {
-        return;
+        setIsOpen(true);
+
+
     }
 
     function handleEditarClick() {
-        return;
+        setIsOpen(true);
+
+
     }
 
+    function handleClose() {
+        setIsOpen(false);
+
+    }
 
     return (
         <>
             <AppToolbar titulo="Tipos de Comprobantes" />
             <AppContent >
                 <AppGridHeader onClick={handleNuevoClick} />
+                <TiposComprobantesFormulario isOpen={isOpen} handleClose={handleClose} />
                 {loading && <AppCircularProgress />}
                 {values &&
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        pageSize={2}
-                        rowsPerPageOptions={[2]}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
                         loading={loading}
                         disableSelectionOnClick
                         autoHeight

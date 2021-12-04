@@ -2,7 +2,7 @@ import * as React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
-import appTheme from "../AppTheme";
+import appTheme from "../../AppTheme";
 import AppFooter from "./AppFooter";
 import AppDrawer from "./AppDrawer";
 import { Outlet } from "react-router-dom";

@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { DataGrid, GridColDef, GridRowModel } from "@mui/x-data-grid";
-import { collection } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { db } from "../App";
 import { Button } from "@mui/material";
 import AppToolbar from "../commons/AppToolbar";
 import AppCircularProgress from "../commons/AppCircularProgress";
 import AppGridHeader from "../commons/AppGridHeader";
 import AppContent from "../commons/AppContent";
 import TiposComprobantesFormulario from "./TiposComprobantesFormulario";
+import { collection } from "firebase/firestore";
+import { db } from "../../firebase";
+import ProductosService from "../../services/Productos.services";
 
 
 function TiposComprobantesGestion() {
-    const query = collection(db, "productos");
-    const [values, loading, error] = useCollection(query);
+    const productosRef = collection(db, "productos");
+    const [values, loading, error] = useCollection(ProductosService.getAll());
 
     const rows = values?.docs.map(x => x.data()) as GridRowModel[];
     const columns: GridColDef[] = [
@@ -52,7 +53,6 @@ function TiposComprobantesGestion() {
 
     function handleClose() {
         setIsOpen(false);
-
     }
 
     return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
-import TiposComprobantesGestion from "./components/tipos-comprobantes/TiposComprobantesGestion";
+import TiposComprobantesGestion from "./components/tipos-comprobantes/TiposComprobantes.gestion";
 
 function AppRoutes() {
     return (

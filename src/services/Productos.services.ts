@@ -19,7 +19,6 @@ function getAll() {
 
 function test() {
 
-
     return getDocs(collectionRef);
 }
 
@@ -30,7 +29,7 @@ function create(data: Producto) {
 function update(data: Producto) {
     if (data.id) {
         const docRef = doc(collectionRef, data?.id);
-        return updateDoc(docRef, data as UpdateData<Producto>);
+        return updateDoc(docRef, { ...data });
     }
 }
 

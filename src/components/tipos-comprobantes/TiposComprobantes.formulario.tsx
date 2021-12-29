@@ -6,12 +6,13 @@ import ProductosService, { Producto } from "../../services/Productos.services";
 
 
 export interface Props {
+    isOpen: boolean,
     handleClose: () => void,
     values?: Producto
 }
 
-function TiposComprobantesFormulario({ values, handleClose }: Props) {
-    const isOpen = Boolean(values);
+function TiposComprobantesFormulario({ isOpen, values, handleClose }: Props) {
+
     const validation = yup.object().shape({
         nombre: yup
             .string()
@@ -21,17 +22,16 @@ function TiposComprobantesFormulario({ values, handleClose }: Props) {
     });
 
     const formik = useFormik({
-        initialValues: values ?? new Producto(),
+        initialValues: new Producto(values),
+        enableReinitialize: true,
         validationSchema: validation,
         onSubmit: handleSubmit
 
     });
 
-
     async function handleSubmit() {
         const value = formik.values;
-        console.log(formik.values);
-        // console.log(await validation.isValid(formik.values));
+
 
         try {
             if (value.id) {
@@ -46,7 +46,6 @@ function TiposComprobantesFormulario({ values, handleClose }: Props) {
             formik.resetForm();
             handleClose();
         }
-        // }
     }
 
     return (

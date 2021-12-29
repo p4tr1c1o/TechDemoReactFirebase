@@ -6,40 +6,46 @@ import ProductosService, { Producto } from "../../services/Productos.services";
 
 
 export interface Props {
-    isOpen: boolean,
     handleClose: () => void,
+    values?: Producto
 }
 
-function TiposComprobantesFormulario({ isOpen, handleClose }: Props) {
-
+function TiposComprobantesFormulario({ values, handleClose }: Props) {
+    const isOpen = Boolean(values);
     const validation = yup.object().shape({
         nombre: yup
             .string()
-            .min(6, "El nombdre debe tener almenos 6 caracteres")
+            .min(6, "El nombdre debe tener almenos 6 letras")
             .required("Por favor ingrese un nombre"),
         descripcion: yup.string()
     });
 
     const formik = useFormik({
-        initialValues: {
-            nombre: "",
-            descripcion: "",
-        },
+        initialValues: values ?? new Producto(),
         validationSchema: validation,
         onSubmit: handleSubmit
 
     });
 
 
-    function handleSubmit() {
-        const values = formik.values;
-        console.log("formik.values");
+    async function handleSubmit() {
+        const value = formik.values;
+        console.log(formik.values);
         // console.log(await validation.isValid(formik.values));
 
-        // if (values.docId) {
-        //     ProductosService.update(values);
-        // } else {
-        ProductosService.create(values);
+        try {
+            if (value.id) {
+                await ProductosService.update(value);
+            } else {
+                await ProductosService.create(value);
+            }
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            formik.resetForm();
+            handleClose();
+        }
         // }
     }
 

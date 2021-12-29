@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DataGrid, GridColDef, GridRowModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowModel, GridRowModes } from "@mui/x-data-grid";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Button } from "@mui/material";
 import AppToolbar from "../commons/AppToolbar";
@@ -7,32 +7,33 @@ import AppCircularProgress from "../commons/AppCircularProgress";
 import AppGridHeader from "../commons/AppGridHeader";
 import AppContent from "../commons/AppContent";
 import TiposComprobantesFormulario from "./TiposComprobantesFormulario";
-import { collection } from "firebase/firestore";
-import { db } from "../../firebase";
-import ProductosService from "../../services/Productos.services";
+import ProductosService, { Producto } from "../../services/Productos.services";
 
 
 function TiposComprobantesGestion() {
-    const productosRef = collection(db, "productos");
     const [values, loading, error] = useCollection(ProductosService.getAll());
 
-    const rows = values?.docs.map(x => x.data()) as GridRowModel[];
+    const rows = values?.docs.map(doc => {
+        return { id: doc.id, ...doc.data() };
+    }) as GridRowModel[];
+
     const columns: GridColDef[] = [
-        { field: "id", headerName: "ID", width: 85 },
+        { field: "id", headerName: "Id", hide: true },
         { field: "nombre", headerName: "Nombre", width: 250 },
         { field: "descripcion", headerName: "Descripcion", width: 250 },
         { field: "actions", width: 150, headerName: " ", renderCell: renderBotonGrilla },
     ];
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedRow, setRow] = useState({} as GridRowModel);
 
-    function renderBotonGrilla() {
+    function renderBotonGrilla(params: GridRenderCellParams) {
         return (
             <Button
                 variant="contained"
                 color="primary"
                 size="small"
                 style={{ marginLeft: 16 }}
-                onClick={handleEditarClick}
+                onClick={() => handleEditarClick(params.row)}
             >
                 Edit
             </Button>
@@ -45,9 +46,9 @@ function TiposComprobantesGestion() {
 
     }
 
-    function handleEditarClick() {
+    function handleEditarClick(row: GridRowModel) {
+        setRow(row);
         setIsOpen(true);
-
 
     }
 
@@ -60,7 +61,10 @@ function TiposComprobantesGestion() {
             <AppToolbar titulo="Tipos de Comprobantes" />
             <AppContent >
                 <AppGridHeader onClick={handleNuevoClick} />
-                <TiposComprobantesFormulario isOpen={isOpen} handleClose={handleClose} />
+                <TiposComprobantesFormulario
+                    values={selectedRow as Producto}
+                    handleClose={handleClose}
+                />
                 {loading && <AppCircularProgress />}
                 {values &&
                     <DataGrid
@@ -72,6 +76,7 @@ function TiposComprobantesGestion() {
                         disableSelectionOnClick
                         autoHeight
                         pagination
+
                     />
                 }
             </AppContent>

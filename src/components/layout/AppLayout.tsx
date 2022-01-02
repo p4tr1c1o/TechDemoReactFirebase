@@ -8,6 +8,7 @@ import AppDrawer from "./AppDrawer";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import { padding } from "@mui/system";
+import { CssBaseline } from "@mui/material";
 
 export default function AppLayout() {
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -31,6 +32,7 @@ export default function AppLayout() {
 
     return (
         <ThemeProvider theme={appTheme}>
+            <CssBaseline />
             <Box sx={styles.layout}>
                 <AppDrawer
                     isMdUp={isMdUp}

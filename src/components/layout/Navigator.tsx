@@ -24,7 +24,8 @@ const categories = [
     {
         nombreCategoria: "Build",
         paginas: [
-            { titulo: "Authentication", icono: <PeopleIcon />, activo: true },
+            { titulo: "SignIn", icono: <PeopleIcon />, ruta: "signin-side", activo: true },
+            { titulo: "SignUp", icono: <PeopleIcon />, ruta: "signup" },
             { titulo: "Pagina", icono: <DnsRoundedIcon />, ruta: "pagina" },
             { titulo: "Tipos Comprobantes", icono: <PermMediaOutlinedIcon />, ruta: "tipos-comprobantes" },
             { titulo: "Hosting", icono: <PublicIcon /> },

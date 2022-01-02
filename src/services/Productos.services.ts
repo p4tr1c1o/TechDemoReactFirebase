@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { collection, orderBy, query, addDoc, updateDoc, doc, UpdateData, getDocs } from "firebase/firestore";
+import { collection, orderBy, query, addDoc, updateDoc, deleteDoc, doc, getDocs } from "firebase/firestore";
 
 export class Producto {
     id?: string;
@@ -33,15 +33,15 @@ function update(data: Producto) {
     }
 }
 
-// const delete = (id) => {
-//     return db.doc(id).delete();
-// };
+function remove(id: string) {
+    return deleteDoc(doc(collectionRef, id));
+}
 
 const ProductosService = {
     getAll,
     create,
     update,
-    // remove
+    remove
 };
 
 export default ProductosService;

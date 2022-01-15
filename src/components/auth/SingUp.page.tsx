@@ -15,8 +15,11 @@ import appTheme from "../../AppTheme";
 import { Usuario } from "../../models/Usuario.model";
 import { useFormik } from "formik";
 import AuthService from "../../services/Auth.services";
+import { useState } from "react";
 
 export default function SignUp() {
+    const [mensaje, setMensaje] = useState("");
+
 
     const validation = yup.object().shape({
         nombre: yup
@@ -46,7 +49,19 @@ export default function SignUp() {
     });
 
     async function handleSubmit() {
-        AuthService.registarUsuario(new Usuario(formik.values));
+        const result = await AuthService.registarUsuario(new Usuario(formik.values));
+
+        if (result?.isError) {
+            switch (result.errorCode) {
+                case "auth/email-already-in-use":
+                    formik.errors.email = "El correo ya esta en uso. Elige otro.";
+                    break;
+
+                default:
+                    setMensaje(result.errorCode as string);
+                    break;
+            }
+        }
         return;
     }
 
@@ -147,11 +162,15 @@ export default function SignUp() {
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
                             </Grid> */}
+                            <Grid item xs={12}>
+                                <Typography variant="h6" color="warning"> {mensaje}</Typography>
+                            </Grid>
                         </Grid>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
+                            disabled={formik.isSubmitting}
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Ingresar

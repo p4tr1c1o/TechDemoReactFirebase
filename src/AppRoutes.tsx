@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
-import TiposComprobantesGestion from "./components/tipos-comprobantes/TiposComprobantes.gestion";
-import SignInSide from "./components/auth/SignInSide";
-import SignUp from "./components/auth/SingUp";
+import TiposComprobantesPage from "./components/tipos-comprobantes/TiposComprobantes.page";
+import SignInSide from "./components/auth/SignInSide.page";
+import SignUp from "./components/auth/SingUp.page";
 
 function AppRoutes() {
     return (
@@ -11,7 +11,7 @@ function AppRoutes() {
             <Route path="signin-side" element={<SignInSide />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="/" element={<AppLayout />} >
-                <Route path="tipos-comprobantes" element={<TiposComprobantesGestion />} />
+                <Route path="tipos-comprobantes" element={<TiposComprobantesPage />} />
             </Route>
         </Routes>
     );

@@ -6,11 +6,12 @@ import AppToolbar from "../commons/AppToolbar";
 import AppCircularProgress from "../commons/AppCircularProgress";
 import AppGridHeader from "../commons/AppGridHeader";
 import AppContent from "../commons/AppContent";
-import TiposComprobantesFormulario from "./TiposComprobantes.formulario";
-import ProductosService, { Producto } from "../../services/Productos.services";
+import TiposComprobantesForm from "./TiposComprobantes.form";
+import ProductosService from "../../services/Productos.services";
+import Producto from "../../models/Producto.model";
 
 
-function TiposComprobantesGestion() {
+function TiposComprobantesPage() {
     const [values, loading, error] = useCollection(ProductosService.getAll());
 
     const rows = values?.docs.map(doc => {
@@ -63,23 +64,22 @@ function TiposComprobantesGestion() {
             <AppToolbar titulo="Tipos de Comprobantes" />
             <AppContent >
                 <AppGridHeader onClick={handleNuevoClick} />
-                <TiposComprobantesFormulario
+                <TiposComprobantesForm
                     values={selectedRow as Producto}
                     handleClose={handleClose}
-                    isOpen={Boolean(selectedRow)}
+                    isOpen={openDialog}
                 />
                 {loading && <AppCircularProgress />}
                 {values &&
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        pageSize={5}
+                        pageSize={10}
                         rowsPerPageOptions={[5]}
                         loading={loading}
                         disableSelectionOnClick
                         autoHeight
                         pagination
-
                     />
                 }
             </AppContent>
@@ -87,4 +87,4 @@ function TiposComprobantesGestion() {
     );
 }
 
-export default TiposComprobantesGestion;
+export default TiposComprobantesPage;

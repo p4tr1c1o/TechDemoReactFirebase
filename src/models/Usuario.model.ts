@@ -2,7 +2,7 @@ import { Roles } from "./Roles.model";
 
 
 export class Usuario {
-    id: string;
+    id?: string;
 
     uid: string;
     nombre: string;
@@ -10,9 +10,9 @@ export class Usuario {
     displayName: string;
     email: string;
     password: string;
-    photoURL: string;
-    ultimoLogin: string;
-    usuarioEstado: number;
+    photoURL?: string;
+    ultimoLogin?: string;
+    usuarioEstado?: number;
     roles: Roles;
 
     public constructor(init?: Partial<Usuario>) {

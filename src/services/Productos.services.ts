@@ -1,15 +1,6 @@
 import { db } from "../firebase";
 import { collection, orderBy, query, addDoc, updateDoc, deleteDoc, doc, getDocs } from "firebase/firestore";
-
-export class Producto {
-    id?: string;
-    nombre: string;
-    descripcion?: string;
-
-    constructor(init?: Partial<Producto>) {
-        Object.assign(this, init);
-    }
-}
+import Producto from "../models/Producto.model";
 
 const collectionRef = collection(db, "productos");
 

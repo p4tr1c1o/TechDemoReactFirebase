@@ -2,8 +2,8 @@ import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import ProductosService, { Producto } from "../../services/Productos.services";
-
+import ProductosService from "../../services/Productos.services";
+import Producto from "../../models/Producto.model";
 
 export interface Props {
     isOpen: boolean,
@@ -11,7 +11,7 @@ export interface Props {
     values?: Producto
 }
 
-function TiposComprobantesFormulario({ isOpen, values, handleClose }: Props) {
+function TiposComprobantesForm({ isOpen, values, handleClose }: Props) {
 
     const validation = yup.object().shape({
         nombre: yup
@@ -91,4 +91,4 @@ function TiposComprobantesFormulario({ isOpen, values, handleClose }: Props) {
     );
 }
 
-export default TiposComprobantesFormulario;
+export default TiposComprobantesForm;

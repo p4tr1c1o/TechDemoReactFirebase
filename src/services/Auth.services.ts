@@ -27,22 +27,26 @@ async function registarUsuario(usuario: Usuario) {
         return setDoc(userDoc, JSON.parse(JSON.stringify(usuario)), { merge: true });
     } catch (error) {
         if (error instanceof FirebaseError) {
-            return { isError: true, errorCode: error.code };
+            return { esError: true, errorCode: error.code };
         }
-        return { isError: true, errorCode: error };
+        return { esError: true, errorCode: error };
     }
 
 }
 
-function ingresar(email: string, password: string) {
+async function ingresar(email: string, password: string) {
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
 
-    return signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+        return { esError: true, errorCode: error };
+    }
 }
 
 
-function cerrarSesion() {
+async function cerrarSesion() {
 
-    return signOut(auth);
+    return await signOut(auth);
 }
 
 const AuthService = {

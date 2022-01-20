@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as yup from "yup";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,8 +14,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import appTheme from "../../AppTheme";
+import { useFormik } from "formik";
+import AuthService from "../../services/Auth.services";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function Copyright(props: any) {
+
+
+function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {"Copyright © "}
@@ -27,18 +33,42 @@ function Copyright(props: any) {
     );
 }
 
-// const theme = createTheme();
-
 export default function SignInSide() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get("email"),
-            password: data.get("password"),
-        });
-    };
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = (location.state as (any | null))?.from?.pathname || "/";
+
+    const validacion = yup.object().shape({
+        email: yup
+            .string()
+            .email()
+            .required("Por favor ingrese un email"),
+        password: yup
+            .string()
+            .min(8)
+            .matches(/[a-zA-Z0-9]/, "Password can only contain Latin letters.")
+    });
+
+
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: ""
+        },
+        onSubmit: handleSubmit,
+        enableReinitialize: true,
+        validationSchema: validacion,
+    });
+
+    async function handleSubmit() {
+        const result = await AuthService.ingresar(formik.values.email, formik.values.password);
+        if (result?.esError) {
+            console.log(result.errorCode);
+        }
+        console.log("navigate");
+        navigate(from, { replace: true });
+    }
 
     return (
         <ThemeProvider theme={appTheme}>
@@ -74,7 +104,7 @@ export default function SignInSide() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
@@ -84,6 +114,10 @@ export default function SignInSide() {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
+                                value={formik.values.email}
+                                onChange={formik.handleChange}
+                                error={formik.touched.email && Boolean(formik.errors.email)}
+                                helperText={formik.touched.email && formik.errors.email}
                             />
                             <TextField
                                 margin="normal"
@@ -94,6 +128,10 @@ export default function SignInSide() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                helperText={formik.touched.password && formik.errors.password}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
@@ -103,6 +141,7 @@ export default function SignInSide() {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                disabled={formik.isSubmitting}
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign In

@@ -1,18 +1,14 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import HelpIcon from "@mui/icons-material/Help";
 import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
+import AccountMenu from "./AccountMenu";
+import { useState } from "react";
+import { Toolbar, Tooltip } from "@mui/material";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -21,10 +17,19 @@ interface HeaderProps {
 }
 
 export default function Header({ onDrawerToggle }: HeaderProps) {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
+    const openAccountMenu = Boolean(anchorEl);
 
+    function handleAccountMenuClick(event: React.MouseEvent<HTMLElement>) {
+        setAnchorEl(event.currentTarget);
+    }
+
+    function handleClose() {
+        setAnchorEl(null);
+    }
 
     return (
-        <React.Fragment>
+        <>
             <AppBar color="primary" position="sticky" elevation={0}>
                 <Toolbar>
                     <Grid container spacing={1} alignItems="center">
@@ -64,13 +69,14 @@ export default function Header({ onDrawerToggle }: HeaderProps) {
                             </Tooltip>
                         </Grid>
                         <Grid item>
-                            <IconButton color="inherit" sx={{ p: 0.5 }}>
+                            <IconButton color="inherit" sx={{ p: 0.5 }} onClick={handleAccountMenuClick} >
                                 <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
                             </IconButton>
+                            <AccountMenu open={openAccountMenu} anchorEl={anchorEl} handleClose={handleClose} />
                         </Grid>
                     </Grid>
                 </Toolbar>
             </AppBar>
-        </React.Fragment >
+        </ >
     );
 }

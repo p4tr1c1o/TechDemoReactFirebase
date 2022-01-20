@@ -21,7 +21,7 @@ export default function SignUp() {
     const [mensaje, setMensaje] = useState("");
 
 
-    const validation = yup.object().shape({
+    const validacion = yup.object().shape({
         nombre: yup
             .string()
             .min(3, "El nombre debe tener almenos 3 letras")
@@ -43,7 +43,7 @@ export default function SignUp() {
     const formik = useFormik({
         initialValues: new Usuario(),
         enableReinitialize: true,
-        validationSchema: validation,
+        validationSchema: validacion,
         onSubmit: handleSubmit
 
     });
@@ -51,7 +51,7 @@ export default function SignUp() {
     async function handleSubmit() {
         const result = await AuthService.registarUsuario(new Usuario(formik.values));
 
-        if (result?.isError) {
+        if (result?.esError) {
             switch (result.errorCode) {
                 case "auth/email-already-in-use":
                     formik.errors.email = "El correo ya esta en uso. Elige otro.";
@@ -173,7 +173,7 @@ export default function SignUp() {
                             disabled={formik.isSubmitting}
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Ingresar
+                            Registrarme
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>

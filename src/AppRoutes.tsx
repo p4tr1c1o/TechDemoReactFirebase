@@ -5,12 +5,11 @@ import TiposComprobantesPage from "./components/tipos-comprobantes/TiposComproba
 import SignInSide from "./components/auth/SignInSide.page";
 import SignUp from "./components/auth/SingUp.page";
 import RequireAuth from "./RequireAuth";
+import { auth } from "./services/Auth.services";
 
 function AppRoutes() {
     return (
         <Routes>
-            <Route path="signin-side" element={<SignInSide />} />
-            <Route path="signup" element={<SignUp />} />
             <Route path="/" element={<AppLayout />} >
                 <Route path="tipos-comprobantes" element={
                     <RequireAuth>
@@ -18,6 +17,8 @@ function AppRoutes() {
                     </RequireAuth>
                 } />
             </Route>
+            <Route path="signin-side" element={<SignInSide />} />
+            <Route path="signup" element={<SignUp />} />
         </Routes>
     );
 }

@@ -124,7 +124,11 @@ appTheme = {
                 },
             },
         },
+
         MuiListItemButton: {
+            defaultProps: {
+                disableTouchRipple: true,
+            },
             styleOverrides: {
                 root: {
                     "&.Mui-selected": {

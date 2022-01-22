@@ -17,14 +17,17 @@ import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputCompone
 import TimerIcon from "@mui/icons-material/Timer";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PhonelinkSetupIcon from "@mui/icons-material/PhonelinkSetup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Home, Settings, ArrowRight, KeyboardArrowDown } from "@mui/icons-material";
+import { Tooltip, IconButton, Paper, } from "@mui/material";
+import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 
 
 const categories = [
     {
         nombreCategoria: "Build",
         paginas: [
-            { titulo: "SignIn", icono: <PeopleIcon />, ruta: "signin-side", activo: true },
+            { titulo: "SignIn", icono: <PeopleIcon />, ruta: "signin-side" },
             { titulo: "SignUp", icono: <PeopleIcon />, ruta: "signup" },
             { titulo: "Pagina", icono: <DnsRoundedIcon />, ruta: "pagina" },
             { titulo: "Tipos Comprobantes", icono: <PermMediaOutlinedIcon />, ruta: "tipos-comprobantes" },
@@ -45,8 +48,8 @@ const categories = [
 
 const styles = {
     item: {
-        py: "2px",
-        px: 3,
+        paddingy: "2px",
+        paddingx: 3,
         color: "rgba(255, 255, 255, 0.7)",
         "&:hover, &:focus": {
             bgcolor: "rgba(255, 255, 255, 0.08)",
@@ -54,46 +57,182 @@ const styles = {
     },
     itemCategory: {
         boxShadow: "0 -1px 0 rgb(255,255,255,0.1) inset",
-        py: 1.5,
-        px: 3,
+        paddingy: 1.5,
+        paddingx: 3,
     }
 };
 
 export default function Navigator({ ...props }: DrawerProps) {
     //TODO: renombrar variables y usar thema para stylos y colores
+    const navigate = useNavigate();
+    const [open, setOpen] = React.useState(true);
+
+    const FireNav = styled(List)<{ component?: React.ElementType }>({
+        "& .MuiListItemButton-root": {
+            paddingLeft: 24,
+            paddingRight: 24,
+        },
+        "& .MuiListItemIcon-root": {
+            minWidth: 0,
+            marginRight: 16,
+        },
+        "& .MuiSvgIcon-root": {
+            fontSize: 20,
+        },
+    });
 
     return (
         <Drawer variant="permanent" {...props}>
-            <List disablePadding>
-                <ListItem sx={{ ...styles.item, ...styles.itemCategory, fontSize: 22, color: "#fff" }}>
-                    Paperbase
-                </ListItem>
-                <ListItem sx={{ ...styles.item, ...styles.itemCategory }}>
-                    <ListItemIcon>
-                        <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText>Project Overview</ListItemText>
-                </ListItem>
-                {categories.map(({ nombreCategoria, paginas }) => (
-                    <Box key={nombreCategoria} sx={{ bgcolor: "#101F33" }}>
-                        <ListItem sx={{ py: 2, px: 3 }}>
-                            <ListItemText sx={{ color: "#fff" }}>{nombreCategoria}</ListItemText>
-                        </ListItem>
-                        {paginas.map(({ titulo, icono, activo, ruta }) => (
-                            <ListItem disablePadding key={titulo}>
-                                <ListItemButton selected={activo} sx={styles.item}>
-                                    <ListItemIcon>{icono}</ListItemIcon>
-                                    {ruta
-                                        ? <Link to={ruta}>{titulo}</Link>
-                                        : <ListItemText>{titulo}</ListItemText>
-                                    }
+            <Box sx={{ display: "flex" }}>
+                <ThemeProvider
+                    theme={createTheme({
+                        components: {
+                            MuiListItemButton: {
+                                defaultProps: {
+                                    disableTouchRipple: true,
+                                },
+                            },
+                        },
+                        palette: {
+                            mode: "dark",
+                            primary: { main: "rgb(102, 157, 246)" },
+                            background: { paper: "rgb(5, 30, 52)" },
+                        },
+                    })}
+                >
+                    <Paper elevation={0} sx={{ maxWidth: 256 }}>
+                        <FireNav component="nav" disablePadding>
+                            <ListItemButton component="a" href="#customized-list">
+                                <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
+                                <ListItemText
+                                    sx={{ my: 0 }}
+                                    primary="Firebash"
+                                    primaryTypographyProps={{
+                                        fontSize: 20,
+                                        fontWeight: "medium",
+                                        letterSpacing: 0,
+                                    }}
+                                />
+                            </ListItemButton>
+                            <Divider />
+                            <ListItem component="div" disablePadding>
+                                <ListItemButton sx={{ height: 56 }}>
+                                    <ListItemIcon>
+                                        <Home color="primary" />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary="Project Overview"
+                                        primaryTypographyProps={{
+                                            color: "primary",
+                                            fontWeight: "medium",
+                                            variant: "body2",
+                                        }}
+                                    />
                                 </ListItemButton>
+                                <Tooltip title="Project Settings">
+                                    <IconButton
+                                        size="large"
+                                        sx={{
+                                            "& svg": {
+                                                color: "rgba(255,255,255,0.8)",
+                                                transition: "0.2s",
+                                                transform: "translateX(0) rotate(0)",
+                                            },
+                                            "&:hover, &:focus": {
+                                                bgcolor: "unset",
+                                                "& svg:first-of-type": {
+                                                    transform: "translateX(-4px) rotate(-20deg)",
+                                                },
+                                                "& svg:last-of-type": {
+                                                    right: 0,
+                                                    opacity: 1,
+                                                },
+                                            },
+                                            "&:after": {
+                                                content: "\"\"",
+                                                position: "absolute",
+                                                height: "80%",
+                                                display: "block",
+                                                left: 0,
+                                                width: "1px",
+                                                bgcolor: "divider",
+                                            },
+                                        }}
+                                    >
+                                        <Settings />
+                                        <ArrowRight sx={{ position: "absolute", right: 4, opacity: 0 }} />
+                                    </IconButton>
+                                </Tooltip>
                             </ListItem>
-                        ))}
-                        <Divider sx={{ mt: 2 }} />
-                    </Box>
-                ))}
-            </List>
-        </Drawer>
+                            <Divider />
+
+                            {categories.map(({ nombreCategoria, paginas }) => (
+                                <Box key={nombreCategoria}
+                                    sx={{
+                                        bgcolor: open ? "rgba(71, 98, 130, 0.2)" : null,
+                                        pb: open ? 2 : 0,
+                                    }}
+                                >
+                                    <ListItemButton
+                                        alignItems="flex-start"
+                                        onClick={() => setOpen(!open)}
+                                        sx={{
+                                            px: 3,
+                                            pt: 2.5,
+                                            pb: open ? 0 : 2.5,
+                                            "&:hover, &:focus": { "& svg": { opacity: open ? 1 : 0 } },
+                                        }}
+                                    >
+                                        <ListItemText
+                                            primary={nombreCategoria}
+                                            primaryTypographyProps={{
+                                                fontSize: 15,
+                                                fontWeight: "medium",
+                                                lineHeight: "20px",
+                                                mb: "2px",
+                                            }}
+                                            secondary="Authentication, Firestore Database, Realtime Database, Storage, Hosting, Functions, and Machine Learning"
+                                            secondaryTypographyProps={{
+                                                noWrap: true,
+                                                fontSize: 12,
+                                                lineHeight: "16px",
+                                                color: open ? "rgba(0,0,0,0)" : "rgba(255,255,255,0.5)",
+                                            }}
+                                            sx={{ my: 0 }}
+                                        />
+                                        <KeyboardArrowDown
+                                            sx={{
+                                                mr: -1,
+                                                opacity: 0,
+                                                transform: open ? "rotate(-180deg)" : "rotate(0)",
+                                                transition: "0.2s",
+                                            }}
+                                        />
+                                    </ListItemButton>
+                                    {open &&
+                                        paginas.map(({ titulo, icono, ruta }) => (
+                                            <ListItemButton
+                                                key={titulo}
+                                                sx={{ paddingy: 0, minHeight: 32, color: "rgba(255,255,255,.8)" }}
+                                                onClick={() => navigate(ruta ?? "")}
+                                            >
+                                                <ListItemIcon sx={{ color: "inherit" }}>
+                                                    {icono}
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={titulo}
+                                                    primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
+                                                />
+                                            </ListItemButton>
+                                        ))
+                                    }
+
+                                </Box>))}
+                        </FireNav>
+                    </Paper>
+                </ThemeProvider>
+            </Box>
+        </Drawer >
     );
 }
+

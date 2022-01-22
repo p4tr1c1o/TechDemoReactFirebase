@@ -66,7 +66,6 @@ export default function SignInSide() {
         if (result?.esError) {
             console.log(result.errorCode);
         }
-        console.log("navigate");
         navigate(from, { replace: true });
     }
 

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
-function AppFooter() {
+function Footer() {
     return (
         <Box component="footer" sx={{ p: 2, bgcolor: "#eaeff1" }}>
             <Typography variant="body2" color="text.secondary" align="center">
@@ -17,4 +17,4 @@ function AppFooter() {
     );
 }
 
-export default AppFooter;
+export default Footer;

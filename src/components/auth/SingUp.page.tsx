@@ -12,14 +12,18 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import appTheme from "../../AppTheme";
-import { Usuario } from "../../models/Usuario.model";
+import Usuario from "../../models/Usuario.model";
 import { useFormik } from "formik";
-import AuthService from "../../services/Auth.services";
-import { useState } from "react";
+import AuthService, { auth } from "../../services/Auth.services";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+
 
 export default function SignUp() {
     const [mensaje, setMensaje] = useState("");
-
+    const [currentUser, authLoading, authError] = useAuthState(auth);
+    const navigate = useNavigate();
 
     const validacion = yup.object().shape({
         nombre: yup
@@ -39,6 +43,16 @@ export default function SignUp() {
             .min(8)
             .matches(/[a-zA-Z0-9]/, "Password can only contain Latin letters.")
     });
+
+    useEffect(() => {
+        if (authLoading) {
+            // spinner
+            return;
+        }
+        if (currentUser) {
+            navigate("/", { replace: true });
+        }
+    }, [currentUser, authLoading]);
 
     const formik = useFormik({
         initialValues: new Usuario(),
@@ -156,12 +170,6 @@ export default function SignUp() {
                                     helperText={formik.touched.password && formik.errors.password}
                                 />
                             </Grid>
-                            {/* <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
-                            </Grid> */}
                             <Grid item xs={12}>
                                 <Typography variant="h6" color="warning"> {mensaje}</Typography>
                             </Grid>

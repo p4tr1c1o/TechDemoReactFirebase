@@ -65,7 +65,8 @@ const styles = {
 export default function Navigator({ ...props }: DrawerProps) {
     //TODO: renombrar variables y usar thema para stylos y colores
     const navigate = useNavigate();
-    const [open, setOpen] = React.useState(true);
+    const [categoriasStates, setCategoriasStates] = React.useState<string[]>([categories[0].nombreCategoria]);
+
 
     const FireNav = styled(List)<{ component?: React.ElementType }>({
         "& .MuiListItemButton-root": {
@@ -80,6 +81,22 @@ export default function Navigator({ ...props }: DrawerProps) {
             fontSize: 20,
         },
     });
+
+    function setCategoriaOpen(nombreCategoria: string) {
+        const existe = categoriasStates.find(categoria => categoria == nombreCategoria);
+        if (existe) {
+            setCategoriasStates(categoriasStates.filter(categoria => categoria != nombreCategoria));
+        } else {
+            setCategoriasStates(categoriasStates.concat(nombreCategoria));
+        }
+    }
+
+    function isCategoriaOpen(nombreCategoria: string) {
+
+        if (nombreCategoria) {
+            return categoriasStates.find(categoria => categoria == nombreCategoria);
+        }
+    }
 
     return (
         <Drawer variant="permanent" {...props}>
@@ -169,18 +186,18 @@ export default function Navigator({ ...props }: DrawerProps) {
                             {categories.map(({ nombreCategoria, paginas }) => (
                                 <Box key={nombreCategoria}
                                     sx={{
-                                        bgcolor: open ? "rgba(71, 98, 130, 0.2)" : null,
-                                        pb: open ? 2 : 0,
+                                        bgcolor: isCategoriaOpen(nombreCategoria) ? "rgba(71, 98, 130, 0.2)" : null,
+                                        pb: isCategoriaOpen(nombreCategoria) ? 2 : 0,
                                     }}
                                 >
                                     <ListItemButton
                                         alignItems="flex-start"
-                                        onClick={() => setOpen(!open)}
+                                        onClick={() => setCategoriaOpen(nombreCategoria)}
                                         sx={{
                                             px: 3,
                                             pt: 2.5,
-                                            pb: open ? 0 : 2.5,
-                                            "&:hover, &:focus": { "& svg": { opacity: open ? 1 : 0 } },
+                                            pb: isCategoriaOpen(nombreCategoria) ? 0 : 2.5,
+                                            "&:hover, &:focus": { "& svg": { opacity: isCategoriaOpen(nombreCategoria) ? 1 : 0 } },
                                         }}
                                     >
                                         <ListItemText
@@ -196,7 +213,7 @@ export default function Navigator({ ...props }: DrawerProps) {
                                                 noWrap: true,
                                                 fontSize: 12,
                                                 lineHeight: "16px",
-                                                color: open ? "rgba(0,0,0,0)" : "rgba(255,255,255,0.5)",
+                                                color: isCategoriaOpen(nombreCategoria) ? "rgba(0,0,0,0)" : "rgba(255,255,255,0.5)",
                                             }}
                                             sx={{ my: 0 }}
                                         />
@@ -204,12 +221,12 @@ export default function Navigator({ ...props }: DrawerProps) {
                                             sx={{
                                                 mr: -1,
                                                 opacity: 0,
-                                                transform: open ? "rotate(-180deg)" : "rotate(0)",
+                                                transform: isCategoriaOpen(nombreCategoria) ? "rotate(-180deg)" : "rotate(0)",
                                                 transition: "0.2s",
                                             }}
                                         />
                                     </ListItemButton>
-                                    {open &&
+                                    {isCategoriaOpen(nombreCategoria) &&
                                         paginas.map(({ titulo, icono, ruta }) => (
                                             <ListItemButton
                                                 key={titulo}

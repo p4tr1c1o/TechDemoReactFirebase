@@ -1,18 +1,24 @@
-import { Usuario } from "./../models/Usuario.model";
+import Usuario from "./../models/Usuario.model";
 import {
     getAuth,
-    onAuthStateChanged,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut
 } from "firebase/auth";
 import { Roles } from "../models/Roles.model";
-import { doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { FirebaseError } from "firebase/app";
 
 const usuariosRef = collection(db, "usuarios");
 export const auth = getAuth();
+
+async function obtenerUsuario(uid: string) {
+    const docRef = doc(usuariosRef, uid);
+    const userDoc = await getDoc(docRef);
+    return new Usuario(userDoc.data());
+}
+
 
 async function registarUsuario(usuario: Usuario) {
 
@@ -50,6 +56,7 @@ async function cerrarSesion() {
 }
 
 const AuthService = {
+    obtenerUsuario,
     registarUsuario,
     ingresar,
     cerrarSesion,

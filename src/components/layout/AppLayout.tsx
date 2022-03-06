@@ -4,7 +4,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import appTheme from "../../AppTheme";
 import Footer from "./Footer";
-import Drawer from "./Drawer";
+import DrawerHandler from "./DrawerHandler";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import { padding } from "@mui/system";
@@ -31,10 +31,10 @@ export default function AppLayout() {
     } as const;
 
     return (
-        <ThemeProvider theme={appTheme}>
+        <>
             <CssBaseline />
             <Box sx={styles.layout}>
-                <Drawer
+                <DrawerHandler
                     isMdUp={isMdUp}
                     mobileOpen={mobileOpen}
                     handleDrawerToggle={handleDrawerToggle}
@@ -45,6 +45,6 @@ export default function AppLayout() {
                     <Footer />
                 </Box>
             </Box >
-        </ThemeProvider >
+        </ >
     );
 }

@@ -18,7 +18,9 @@ import { useFormik } from "formik";
 import AuthService from "../../services/Auth.services";
 import { useLocation, useNavigate } from "react-router-dom";
 
-
+interface StateType {
+    from: { pathname: string }
+}
 
 function Copyright(props) {
     return (
@@ -36,8 +38,7 @@ function Copyright(props) {
 export default function SignInSide() {
     const navigate = useNavigate();
     const location = useLocation();
-
-    const from = (location.state as (any | null))?.from?.pathname || "/";
+    const from = (location.state as StateType)?.from?.pathname || "/";
 
     const validacion = yup.object().shape({
         email: yup
@@ -64,7 +65,7 @@ export default function SignInSide() {
     async function handleSubmit() {
         const result = await AuthService.ingresar(formik.values.email, formik.values.password);
         if (result?.esError) {
-            console.log(result.errorCode);
+            return console.log(result.errorCode);
         }
         navigate(from, { replace: true });
     }
@@ -101,7 +102,7 @@ export default function SignInSide() {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Acceder
                         </Typography>
                         <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -109,7 +110,7 @@ export default function SignInSide() {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label="Email"
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
@@ -134,7 +135,7 @@ export default function SignInSide() {
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
+                                label="Recuerdame"
                             />
                             <Button
                                 type="submit"
@@ -143,17 +144,17 @@ export default function SignInSide() {
                                 disabled={formik.isSubmitting}
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                                Acceder
                             </Button>
                             <Grid container>
                                 <Grid item xs>
                                     <Link href="#" variant="body2">
-                                        Forgot password?
+                                        Olvido su password?
                                     </Link>
                                 </Grid>
                                 <Grid item>
                                     <Link href="signup" variant="body2">
-                                        {"Don't have an account? Sign Up"}
+                                        {"Aun no tiene cuenta? Crear cuenta"}
                                     </Link>
                                 </Grid>
                             </Grid>

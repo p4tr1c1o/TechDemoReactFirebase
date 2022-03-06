@@ -1,7 +1,7 @@
 import { Roles } from "./Roles.model";
 
 
-export class Usuario {
+export default class Usuario {
     id?: string;
 
     uid: string;

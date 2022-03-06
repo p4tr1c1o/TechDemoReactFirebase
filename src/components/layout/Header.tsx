@@ -7,8 +7,11 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountMenu from "./AccountMenu";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Toolbar, Tooltip } from "@mui/material";
+import { auth } from "../../services/Auth.services";
+import { AuthContext } from "../../AuthContext";
+
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -19,12 +22,13 @@ interface HeaderProps {
 export default function Header({ onDrawerToggle }: HeaderProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>();
     const openAccountMenu = Boolean(anchorEl);
+    const usuarioActual = useContext(AuthContext);
 
     function handleAccountMenuClick(event: React.MouseEvent<HTMLElement>) {
         setAnchorEl(event.currentTarget);
     }
 
-    function handleClose() {
+    function handleCloseAccountMenu() {
         setAnchorEl(null);
     }
 
@@ -58,7 +62,7 @@ export default function Header({ onDrawerToggle }: HeaderProps) {
                                 rel="noopener noreferrer"
                                 target="_blank"
                             >
-                                Go to docs
+                                Go to docs {usuarioActual?.apellido}
                             </Link>
                         </Grid>
                         <Grid item>
@@ -70,9 +74,9 @@ export default function Header({ onDrawerToggle }: HeaderProps) {
                         </Grid>
                         <Grid item>
                             <IconButton color="inherit" sx={{ p: 0.5 }} onClick={handleAccountMenuClick} >
-                                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
+                                <Avatar>{usuarioActual?.nombre.charAt(0)}</Avatar>
                             </IconButton>
-                            <AccountMenu open={openAccountMenu} anchorEl={anchorEl} handleClose={handleClose} />
+                            <AccountMenu open={openAccountMenu} anchorEl={anchorEl} handleClose={handleCloseAccountMenu} />
                         </Grid>
                     </Grid>
                 </Toolbar>

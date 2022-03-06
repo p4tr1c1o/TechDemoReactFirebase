@@ -8,8 +8,8 @@ interface Props {
     handleDrawerToggle: () => void
 }
 
-function Drawer({ isMdUp, mobileOpen, handleDrawerToggle }: Props) {
-    const drawerWidth = 256;
+function DrawerHandler({ isMdUp, mobileOpen, handleDrawerToggle }: Props) {
+    const drawerWidth = 262;
 
     return (
         <Box
@@ -32,4 +32,4 @@ function Drawer({ isMdUp, mobileOpen, handleDrawerToggle }: Props) {
     );
 }
 
-export default Drawer;
+export default DrawerHandler;

@@ -33,8 +33,8 @@ export default function AccountMenu({ anchorEl, open, handleClose }: AccountMenu
 
     return (
         <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
+            id="positioned-menu"
+            aria-labelledby="positioned-button"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
@@ -48,9 +48,9 @@ export default function AccountMenu({ anchorEl, open, handleClose }: AccountMenu
                 horizontal: "left",
             }}
         >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+            <MenuItem onClick={handleClose}>Perfil</MenuItem>
+            <MenuItem onClick={handleClose}>Acerca de</MenuItem>
+            <MenuItem onClick={handleLogOut}>Cerrar sesion</MenuItem>
         </Menu>
     );
 }

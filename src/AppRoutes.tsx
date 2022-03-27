@@ -9,7 +9,11 @@ import RequireAuth from "./RequireAuth";
 function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<AppLayout />} >
+            <Route path="/" element={
+                <RequireAuth>
+                    <AppLayout />
+                </RequireAuth>
+            } >
                 <Route path="tipos-comprobantes" element={
                     <RequireAuth>
                         <TiposComprobantesPage />

@@ -10,10 +10,11 @@ import { doc, setDoc, collection, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { FirebaseError } from "firebase/app";
 
-const usuariosRef = collection(db, "usuarios");
 export const auth = getAuth();
+const usuariosRef = collection(db, "usuarios");
 
 async function obtenerUsuario(uid: string) {
+
     const docRef = doc(usuariosRef, uid);
     const userDoc = await getDoc(docRef);
     return new Usuario(userDoc.data());
@@ -31,6 +32,7 @@ async function registarUsuario(usuario: Usuario) {
 
         const userDoc = doc(usuariosRef, usuario.uid);
         return setDoc(userDoc, JSON.parse(JSON.stringify(usuario)), { merge: true });
+
     } catch (error) {
         if (error instanceof FirebaseError) {
             return { esError: true, errorCode: error.code };
@@ -41,6 +43,7 @@ async function registarUsuario(usuario: Usuario) {
 }
 
 async function ingresar(email: string, password: string) {
+
     try {
         await signInWithEmailAndPassword(auth, email, password);
 

@@ -44,6 +44,14 @@ export default function SignUp() {
             .matches(/[a-zA-Z0-9]/, "Password can only contain Latin letters.")
     });
 
+    const formik = useFormik({
+        initialValues: new Usuario(),
+        enableReinitialize: true,
+        validationSchema: validacion,
+        onSubmit: handleSubmit
+
+    });
+
     useEffect(() => {
         if (authLoading) {
             // spinner
@@ -53,14 +61,6 @@ export default function SignUp() {
             navigate("/", { replace: true });
         }
     }, [currentUser, authLoading]);
-
-    const formik = useFormik({
-        initialValues: new Usuario(),
-        enableReinitialize: true,
-        validationSchema: validacion,
-        onSubmit: handleSubmit
-
-    });
 
     async function handleSubmit() {
         const result = await AuthService.registarUsuario(new Usuario(formik.values));

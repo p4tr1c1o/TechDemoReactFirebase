@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "./AuthContext";
-import AppRoutes from "./AppRoutes";
+import AppRoutes from "./routes/AppRoutes";
 import appTheme from "./AppTheme";
 
 function App() {

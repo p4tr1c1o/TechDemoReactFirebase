@@ -15,8 +15,10 @@ import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import appTheme from "../../AppTheme";
 import { useFormik } from "formik";
-import AuthService from "../../services/Auth.services";
+import AuthService, { auth } from "../../services/Auth.services";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect } from "react";
 
 interface StateType {
     from: { pathname: string }
@@ -39,6 +41,7 @@ export default function SignInSide() {
     const navigate = useNavigate();
     const location = useLocation();
     const from = (location.state as StateType)?.from?.pathname || "/";
+    // const [currentUser, authLoading, authError] = useAuthState(auth);
 
     const validacion = yup.object().shape({
         email: yup
@@ -51,7 +54,6 @@ export default function SignInSide() {
             .matches(/[a-zA-Z0-9]/, "Password can only contain Latin letters.")
     });
 
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -61,6 +63,17 @@ export default function SignInSide() {
         enableReinitialize: true,
         validationSchema: validacion,
     });
+
+    // useEffect(() => {
+    //     if (authLoading) {
+    //         // spinner
+    //         return;
+    //     }
+    //     if (currentUser) {
+    //         navigate("/", { replace: true });
+    //     }
+    // }, [currentUser, authLoading]);
+
 
     async function handleSubmit() {
         const result = await AuthService.ingresar(formik.values.email, formik.values.password);

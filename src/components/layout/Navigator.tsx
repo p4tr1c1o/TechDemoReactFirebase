@@ -119,11 +119,11 @@ export default function Navigator({ ...props }: DrawerProps) {
                 >
                     <Paper elevation={0} sx={{ maxWidth: 256 }}>
                         <FireNav component="nav" disablePadding>
-                            <ListItemButton component="a" href="#customized-list">
+                            <ListItemButton component="a" href="/">
                                 <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
                                 <ListItemText
                                     sx={{ my: 0 }}
-                                    primary="Firebash"
+                                    primary="Tech Demo"
                                     primaryTypographyProps={{
                                         fontSize: 20,
                                         fontWeight: "medium",

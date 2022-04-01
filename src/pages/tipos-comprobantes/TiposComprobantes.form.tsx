@@ -30,14 +30,12 @@ function TiposComprobantesForm({ isOpen, values, handleClose }: Props) {
     });
 
     async function handleSubmit() {
-        const value = formik.values;
-
 
         try {
-            if (value.id) {
-                await ProductosService.update(value);
+            if (formik.values.id) {
+                await ProductosService.update(formik.values);
             } else {
-                await ProductosService.create(value);
+                await ProductosService.create(formik.values);
             }
         } catch (error) {
             console.log(error);

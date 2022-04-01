@@ -20,6 +20,9 @@ Inicia la aplicacion en modo desarrollo.\
 
 #### Proximamente
 
+    - venta
+    - editar header grilla
     - test con Jest
-    - validaciones de integridad de datos con funciones cloud 
+    - integracion github actions
+    - validaciones de integridad de datos con funciones cloud
   

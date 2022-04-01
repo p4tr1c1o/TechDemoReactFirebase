@@ -25,5 +25,9 @@
   "include": [
     "src",
     "src/components"
-  ]
+  ],
+  "paths":{
+    "@components/*": ["./src/components/*"],
+    "@pages/*": ["./src/pages/*"],
+  }
 }

@@ -1,11 +1,12 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
-import TiposComprobantesPage from "../components/tipos-comprobantes/TiposComprobantes.page";
-import SignInSide from "../components/auth/SignInSide.page";
-import SignUp from "../components/auth/SingUp.page";
+import SignInSide from "../pages/auth/SignInSide.page";
+import SignUp from "../pages/auth/SingUp.page";
 import RequireAuth from "./RequireAuth";
-import Pagina from "../components/Pagina";
+import TiposComprobantesPage from "../pages/tipos-comprobantes/TiposComprobantes.page";
+import Pagina from "../pages/Pagina";
+import VentaForm from "../pages/ventas/Venta.form";
 
 
 function AppRoutes() {
@@ -15,6 +16,7 @@ function AppRoutes() {
                 <Route element={<RequireAuth />} >
                     <Route index element={<Pagina />} />
                     <Route path="tipos-comprobantes" element={<TiposComprobantesPage />} />
+                    <Route path="venta" element={<VentaForm />} />
                 </Route>
             </Route>
 

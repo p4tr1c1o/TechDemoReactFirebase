@@ -25,25 +25,22 @@ import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 
 const categories = [
     {
-        nombreCategoria: "Build",
+        nombreCategoria: "Ventas",
         paginas: [
             { titulo: "SignIn", icono: <PeopleIcon />, ruta: "signin-side" },
             { titulo: "SignUp", icono: <PeopleIcon />, ruta: "signup" },
-            { titulo: "Pagina", icono: <DnsRoundedIcon />, ruta: "pagina" },
             { titulo: "Tipos Comprobantes", icono: <PermMediaOutlinedIcon />, ruta: "tipos-comprobantes" },
-            { titulo: "Hosting", icono: <PublicIcon /> },
-            { titulo: "Functions", icono: <SettingsEthernetIcon /> },
-            { titulo: "Machine learning", icono: <SettingsInputComponentIcon /> },
+            { titulo: "Machine learning", icono: <SettingsInputComponentIcon />, ruta: "venta" },
         ],
     },
-    {
-        nombreCategoria: "Quality",
-        paginas: [
-            { titulo: "Analytics", icono: <SettingsIcon /> },
-            { titulo: "Performance", icono: <TimerIcon /> },
-            { titulo: "Test Lab", icono: <PhonelinkSetupIcon /> },
-        ],
-    },
+    // {
+    //     nombreCategoria: "Gastos",
+    //     paginas: [
+    //         { titulo: "Analytics", icono: <SettingsIcon /> },
+    //         { titulo: "Performance", icono: <TimerIcon /> },
+    //         { titulo: "Test Lab", icono: <PhonelinkSetupIcon /> },
+    //     ],
+    // },
 ];
 
 const styles = {

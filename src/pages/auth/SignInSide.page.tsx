@@ -41,7 +41,7 @@ export default function SignInSide() {
     const navigate = useNavigate();
     const location = useLocation();
     const from = (location.state as StateType)?.from?.pathname || "/";
-    // const [currentUser, authLoading, authError] = useAuthState(auth);
+    const [currentUser, authLoading, authError] = useAuthState(auth);
 
     const validacion = yup.object().shape({
         email: yup
@@ -64,15 +64,15 @@ export default function SignInSide() {
         validationSchema: validacion,
     });
 
-    // useEffect(() => {
-    //     if (authLoading) {
-    //         // spinner
-    //         return;
-    //     }
-    //     if (currentUser) {
-    //         navigate("/", { replace: true });
-    //     }
-    // }, [currentUser, authLoading]);
+    useEffect(() => {
+        if (authLoading) {
+            // spinner
+            return;
+        }
+        if (currentUser) {
+            navigate(from, { replace: true });
+        }
+    }, [currentUser, authLoading]);
 
 
     async function handleSubmit() {

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowModel, GridRowModes } from "@mui/x-data-grid";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { Button } from "@mui/material";
-import AppToolbar from "../commons/AppToolbar";
-import AppCircularProgress from "../commons/AppCircularProgress";
-import AppGridHeader from "../commons/AppGridHeader";
-import AppContent from "../commons/AppContent";
+
+import AppCircularProgress from "../../components/commons/AppCircularProgress";
+import AppGridHeader from "../../components/commons/AppGridHeader";
+import AppContent from "../../components/commons/AppContent";
 import TiposComprobantesForm from "./TiposComprobantes.form";
 import ProductosService from "../../services/Productos.services";
 import Producto from "../../models/Producto.model";
+import AppToolbar from "../../components/commons/AppToolbar";
 
 
 function TiposComprobantesPage() {

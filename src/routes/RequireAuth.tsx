@@ -10,7 +10,6 @@ interface RequireAuthProps {
 
 function RequireAuth({ children }: RequireAuthProps) {
     const location = useLocation();
-    console.log(auth.currentUser);
 
     if (auth.currentUser) {
         return <>

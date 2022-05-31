@@ -1,33 +1,38 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "noImplicitAny": false,
+        "strictPropertyInitialization": false,
+        "jsx": "react-jsx"
+    },
+    "include": [
+        "src",
+        "src/components",
+        "vite.config.ts"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "noImplicitAny": false,
-    "strictPropertyInitialization": false,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src",
-    "src/components"
-  ],
-  "paths":{
-    "@components/*": ["./src/components/*"],
-    "@pages/*": ["./src/pages/*"],
-  }
+    "paths": {
+        "@components/*": [
+            "./src/components/*"
+        ],
+        "@pages/*": [
+            "./src/pages/*"
+        ],
+    }
 }

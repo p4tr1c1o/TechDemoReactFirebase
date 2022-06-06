@@ -7,11 +7,16 @@ import RequireAuth from "./RequireAuth";
 import TiposComprobantesPage from "../pages/tipos-comprobantes/TiposComprobantes.page";
 import Pagina from "../pages/Pagina";
 import VentaForm from "../pages/ventas/Venta.form";
+import OlvidoPassword from "../pages/auth/OlvidoPassword.page";
 
 
 function AppRoutes() {
     return (
         <Routes>
+            <Route path="signin-side" element={<SignInSide />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="olvido-password" element={<OlvidoPassword />} />
+
             <Route path="/" element={<AppLayout />} >
                 <Route element={<RequireAuth />} >
                     <Route index element={<Pagina />} />
@@ -20,8 +25,6 @@ function AppRoutes() {
                 </Route>
             </Route>
 
-            <Route path="signin-side" element={<SignInSide />} />
-            <Route path="signup" element={<SignUp />} />
         </Routes >
     );
 }

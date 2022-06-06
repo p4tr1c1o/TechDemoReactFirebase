@@ -20,12 +20,14 @@
         "noEmit": true,
         "noImplicitAny": false,
         "strictPropertyInitialization": false,
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "removeComments": true
     },
     "include": [
         "src",
         "src/components",
-        "vite.config.ts"
+        "vite.config.ts",
+        "firebase.config.ts"
     ],
     "paths": {
         "@components/*": [

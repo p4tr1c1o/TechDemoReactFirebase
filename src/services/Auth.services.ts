@@ -3,11 +3,12 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    sendPasswordResetEmail,
 } from "firebase/auth";
 import { Roles } from "../models/Roles.model";
 import { doc, setDoc, collection, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase.config";
 import { FirebaseError } from "firebase/app";
 
 export const auth = getAuth();
@@ -52,6 +53,15 @@ async function ingresar(email: string, password: string) {
     }
 }
 
+async function blanquearContraseña(email: string) {
+    try {
+        await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+        return { esError: true, errorCode: error };
+    }
+}
+
+
 
 async function cerrarSesion() {
 
@@ -63,6 +73,7 @@ const AuthService = {
     registarUsuario,
     ingresar,
     cerrarSesion,
+    blanquearContraseña,
 };
 
 export default AuthService;

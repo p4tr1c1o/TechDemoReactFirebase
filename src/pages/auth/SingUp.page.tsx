@@ -47,9 +47,8 @@ export default function SignUp() {
     const formik = useFormik({
         initialValues: new Usuario(),
         enableReinitialize: true,
-        validationSchema: validacion,
-        onSubmit: handleSubmit
-
+        onSubmit: handleSubmit,
+        validationSchema: validacion
     });
 
     useEffect(() => {
@@ -109,6 +108,9 @@ export default function SignUp() {
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Crear Cuenta
+                    </Typography>
+                    <Typography component="div" variant="subtitle1">
+                        Por favor ingrese su email para que podamos enviarle una nueva contraseña.
                     </Typography>
                     <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ marginTop: 3 }}>
                         <Grid container spacing={2}>
@@ -185,14 +187,13 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="signin-side" variant="body2">
                                     Ya tiene una cuenta? Ingrese aqui
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-                {/* <Copyright sx={{ mt: 5 }} /> */}
             </Container>
         </ThemeProvider>
     );

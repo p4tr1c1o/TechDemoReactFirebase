@@ -1,3 +1,5 @@
+import { Palette } from "@mui/icons-material";
+import { blue, red, teal } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 
@@ -14,11 +16,9 @@ declare module "@mui/material/styles" {
 
 let appTheme = createTheme({
     palette: {
-        primary: {
-            light: "#63ccff",
-            main: "#009be5",
-            dark: "#006db3",
-        },
+        primary: blue,
+        secondary: teal,
+
     },
     typography: {
         h5: {

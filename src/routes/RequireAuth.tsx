@@ -10,14 +10,16 @@ interface RequireAuthProps {
 
 function RequireAuth({ children }: RequireAuthProps) {
     const location = useLocation();
+    console.log(auth.currentUser ?? "pepino");
 
     if (auth.currentUser) {
         return <>
             {children ? children : <Outlet />};
+            {/* <div> pepex</div>; */}
         </>;
     }
-    return <Navigate to="/signin-side" state={{ from: location }} replace />;
-
+    // return <Navigate to="/signin-side" state={{ from: location }} replace />;
+    return <div> pepe</div>;
 }
 
 export default RequireAuth;

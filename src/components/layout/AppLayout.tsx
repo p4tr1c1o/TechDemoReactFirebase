@@ -7,12 +7,11 @@ import Footer from "./Footer";
 import DrawerHandler from "./DrawerHandler";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
-import { padding } from "@mui/system";
 import { CssBaseline } from "@mui/material";
 
 export default function AppLayout() {
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const isMdUp = useMediaQuery(appTheme.breakpoints.up("md"));
+    const isMeddium = useMediaQuery(appTheme.breakpoints.up("md"));
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -35,7 +34,7 @@ export default function AppLayout() {
             <CssBaseline />
             <Box sx={styles.layout}>
                 <DrawerHandler
-                    isMdUp={isMdUp}
+                    isMdUp={isMeddium}
                     mobileOpen={mobileOpen}
                     handleDrawerToggle={handleDrawerToggle}
                 />

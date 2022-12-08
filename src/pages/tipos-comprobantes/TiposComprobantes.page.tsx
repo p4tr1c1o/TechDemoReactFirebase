@@ -15,9 +15,7 @@ import AppToolbar from "../../components/commons/AppToolbar";
 function TiposComprobantesPage() {
     const [values, loading, error] = useCollection(ProductosService.getAll());
 
-    const rows = values?.docs.map(doc => {
-        return { id: doc.id, ...doc.data() };
-    }) as GridRowModel[];
+    const rows = values?.docs.map(doc => ({ id: doc.id, ...doc.data() })) as GridRowModel[];
 
     const columns: GridColDef[] = [
         { field: "id", headerName: "Id", hide: true },
@@ -44,20 +42,16 @@ function TiposComprobantesPage() {
 
     function handleNuevoClick() {
         setOpenDialog(true);
-
-
     }
 
     function handleEditarClick(row: GridRowModel) {
         setRow(row);
         setOpenDialog(true);
-
     }
 
     function handleClose() {
         setRow(undefined);
         setOpenDialog(false);
-
     }
 
     return (
